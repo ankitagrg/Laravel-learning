@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <title>Title</title>
+  @notifyCss
+</head>
+
+<body>
+  <div class="container my-5 py-5">
+    <div class="card">
+      <div class="card-header"></div>
+      <div class="card-body">
+        <form action="{{ route('images.update', $image->id) }}" method="post" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+          <div class="form-group mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ $image->title }}">
+            @error('title')
+              <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
+          <div class="form-group mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="form-control" id="image" name="img">
+            @error('image')
+              <small class="text-danger">{{ $message }}</small>
+            @enderror
+
+            <a target="_blank" href="{{ url('uploads/' . $image->image) }}"><img width="50"
+                src="{{ asset('uploads/' . $image->image) }}" alt=""></a>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <x-notify::notify />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    @notifyJs
+</body>
+
+</html>
